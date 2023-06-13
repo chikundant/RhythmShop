@@ -27,27 +27,26 @@ services:
       - media_volume:/home/app/web/media
     depends_on:
       - web
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - 6379:6379
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-  celery:
-    build: .
-    container_name: celery
-    command: celery -A rhythm worker -l INFO
-    volumes:
-      - .:/usr/src/rhythm/
-    depends_on:
-      - redis
-
 
 volumes:
   static_volume:
   media_volume:
 
+#  redis:
+#    image: redis:latest
+#    container_name: redis
+#    ports:
+#      - 6379:6379
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=yes
+#  celery:
+#    build: .
+#    container_name: celery
+#    command: celery -A rhythm worker -l INFO
+#    volumes:
+#      - .:/usr/src/rhythm/
+#    depends_on:
+#      - redis
 
 
 #  pgdb:
