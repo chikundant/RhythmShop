@@ -1,0 +1,15 @@
+<ul class="max-w-xs flex flex-col divide-y divide-gray-200">
+    {% for category in categories %}
+    {% if category.children.all%}
+    <li class="gap-x-2 py-3 pl-4  text-gray-800">
+<!--        <a href="{% url 'category' category.slug%}"> {{category}} </a>-->
+        <h2 class="select-none text-lg leading-8">{{category}}</h2>
+        {% for subcategory in category.children.all %}
+        <div class="flex flex-col text-gray-600">
+            <a href="{% url 'category' subcategory.slug%}" class="font-light ml-8 mt-2 hover:underline hover:underline-offset-4">{{ subcategory }}</a>
+        </div>
+        {% endfor %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>

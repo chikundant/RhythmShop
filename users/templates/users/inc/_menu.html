@@ -1,0 +1,8 @@
+<div class="w-full bg-gray ">
+    <ul class="flex flex-wrap">
+        <li><a href="{% url 'profile' request.user.pk %}" class="p-4 block hover:bg-gray-100">Моя інформація</a>
+        </li>
+        <li><a href="{% url 'my_orders' %}" class="p-4 block hover:bg-gray-100">Мої
+            замовлення</a></li>
+    </ul>
+</div>

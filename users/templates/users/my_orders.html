@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+
+{%block title%} Профіль {% endblock %}
+<div class="bg-white w-full">
+    {% block header %}
+    {% include 'inc/_header.html' %}
+    {% endblock %}
+
+    {% block content%}
+    <div class="flex justify-center items-center mt-24 flex-col px-6 py-12 lg:px-8">
+        <div class="lg:w-3/5 rounded-lg sm:w-full">
+            <h1 class="text-4xl text-center mb-8">Мій профіль</h1>
+            <div class="flex-col justify-center bg-white shadow-md">
+                {% include 'users/inc/_menu.html'%}
+                <div class="w-full bg-white px-16 py-12 space-y-8 border-l border-gray-100 ">
+                    {% if orders %}
+                    {% for order in orders %}
+                    {% include 'users/inc/_order_preview.html'%}
+                    {% endfor %}
+                    {% else %}
+                    <div class="mb-12 border border-b p-4 rounded-lg">
+                        <p>
+                            Здається ви ще не зробили жодного замовлення!
+                        </p>
+                        <a href="{% url 'shop' %}" class="flex font-semibold text-green-600 text-sm mt-10">
+
+                            <svg class="fill-current mr-2 text-green-600 w-4" viewBox="0 0 448 512">
+                                <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/>
+                            </svg>
+                            До магазину
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block footer%}
+    {% include 'inc/_footer.html'%}
+    {% endblock %}
+</div>

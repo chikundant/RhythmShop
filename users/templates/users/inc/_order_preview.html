@@ -1,0 +1,27 @@
+<div class="mb-12 border border-b p-4 rounded-lg flex flex-wrap w-full flex-col">
+    <h3>Замовлення номер: {{ order.pk }}</h3>
+    <ul>
+        {% for order_item in order_items %}
+        {% if order_item.order == order %}
+        <div class="">
+            <div class="flex mt-4 mb-5">
+                <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Деталі продукту</h3>
+            </div>
+            <div class="flex">
+                <img class="h-12 mr-4" src="{{order_item.product.picture.url}}" alt="">
+                <ul class="w-full flex flex-wrap justify-evenly">
+                    <li class="mr-4"><span class="font-bold">Назва:</span> {{ order_item.product.title }}</li>
+                    <li class="mr-4"><span class="font-bold">Ціна:</span> {{ order_item.price }}</li>
+                    <li class="mr-4"><span class="font-bold">Кількість:</span> {{ order_item.quantity }}</li>
+                    {% if order.paid %}
+                    <li class="mr-4"><span class="font-bold">Статус:</span> <span class="text-green-600">Отримано</span></li>
+                    {% else %}
+                    <li><span class="font-bold">Статус:</span> <span class="text-yellow-300">Обробляється</span></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>

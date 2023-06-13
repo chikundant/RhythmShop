@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%block title%} Home {% endblock %}
+{% load shop_tags %}
+{% load static %}
+
+{% block header %}
+{% include 'inc/_header.html' %}
+{% endblock %}
+
+{% block content%}
+
+
+<div class="container m-auto my-24">
+    <div class="lg:grid lg:grid-cols-7">
+        <div class="col-span-2 p-4">
+            <h2 class="mb-8 text-4xl font-bold">Категорії:</h2>
+            {%get_categories as categories%}
+            {% include 'shop/inc/_sidebar.html'%}
+        </div>
+        <div class="col-span-5 p-4 min-h-full">
+            {% include 'shop/inc/_banner.html'%}
+            <h2 class="mb-8 text-4xl">Наші продукти:</h2>
+            <div class="">
+                <div class="grid gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                    {% for product in products%}
+                    {% include 'shop/inc/_product_card.html'%}
+                    {% endfor %}
+                </div>
+                <div class="mt-12 flex justify-center">
+                    {% include 'shop/inc/_pagination.html'%}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block footer%}
+{% include 'inc/_footer.html'%}
+{% endblock %}

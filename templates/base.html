@@ -1,0 +1,53 @@
+{% load static tailwind_tags %}
+
+<style>
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(95, 164, 69);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(155, 197, 140);
+}
+
+
+*{
+    scroll-behavior: smooth;
+}
+
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %} BASE TITLE {% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'img/logo/pageicon.svg' %}" type="image/x-icon">
+    {% tailwind_preload_css %}
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gray-50 leading-normal tracking-normal sm:px-8">
+{% block header %}{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="{% static 'shop/js/cart.js' %}"></script>
+<script src="{% static 'home/js/index.js' %}"></script>
+
+</body>
+</html>

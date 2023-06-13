@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+
+  web:
+    container_name: web
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: gunicorn rhythm.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    depends_on:
+      - celery
+    env_file:
+      - ./.env.prod
+  nginx:
+    build: ./nginx
+    image: public.ecr.aws/nginx/nginx:1.24-alpine-slim
+    ports:
+      - 80:80
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+    depends_on:
+      - web
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+  celery:
+    build: .
+    image: celery
+    container_name: celery
+    command: celery -A rhythm worker -l INFO
+    volumes:
+      - .:/usr/src/rhythm/
+    depends_on:
+      - redis
+
+
+volumes:
+  static_volume:
+  media_volume:
+
+
+
+#  pgdb:
+#    image: postgres
+#    environment:
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#    container_name: pgdb
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data/
+
+#   celery-beat:
+#      build: .
+#      command: celery -A mailing beat -l INFO
+#      volumes:
+#        - .:/usr/src/app/
+#      env_file:
+#        - ./.dev.env
+#      depends_on:
+#        - django
+#        - redis
+#        - pgdb
+

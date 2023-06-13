@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{%block title%} Home {% endblock %}
+{% load shop_tags %}
+{% load static %}
+
+{% block header %}
+{% include 'inc/_header.html' %}
+{% endblock %}
+
+{% block content%}
+
+<section class="mt-24">
+    <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+        <h2 class="mb-4 text-4xl text-center text-gray-900 font-bold">Напишіть нам!</h2>
+        <p class="mb-8 lg:mb-16 font-light text-center text-gray-600 sm:text-xl">Сталася помилка?
+            Маєте запитання до нашої команди? Дайте нам знати заповнивши форму нижче</p>
+        <form action="{% url 'contact' %}" class="space-y-8" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="email" class="block mb-2 text-sm text-gray-900">Ваш
+                    email</label>
+                <input type="email" id="email" name="email"
+                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ark:placeholder-gray-400"
+                       placeholder="name@gmail.com" required>
+            </div>
+            <div>
+                <label for="subject"
+                       class="block mb-2 text-sm text-gray-900">Тема письма</label>
+                <input type="text" id="subject" name="subject"
+                       class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 "
+                       placeholder="Дайте нам знати що у вас за проблема" required>
+            </div>
+            <div class="sm:col-span-2">
+                <label for="message" class="block mb-2 text-sm text-gray-900">Ваше
+                    повідомлення</label>
+                <textarea id="message" rows="6" name="message"
+                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 "
+                          placeholder="Залиште коментар..."></textarea>
+            </div>
+            <button type="submit"
+                    class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-green-600 sm:w-fit hover:bg-green-700 focus:ring-4 focus:outline-none ">
+                Send message
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+{% block footer%}
+{% include 'inc/_footer.html'%}
+{% endblock %}
